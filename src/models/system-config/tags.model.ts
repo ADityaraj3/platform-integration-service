@@ -61,6 +61,5 @@ export interface ITagModel {
   updated_by: number;
   created_at: Date;
   updated_at: Date;
-  // reduce: (map: any, tag: any) => any;
 }
 

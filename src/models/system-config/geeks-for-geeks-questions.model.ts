@@ -35,11 +35,12 @@ export class GeeksForGeeksQuestionModel extends Model {
 
   @Column({
     type: DataType.STRING,
+    unique: true,
   })
   slug: string;
 
   @Column({
-    type: DataType.FLOAT,
+    type: DataType.DECIMAL(15, 2),
   })
   accuracy: number;
 

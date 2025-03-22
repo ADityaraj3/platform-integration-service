@@ -22,11 +22,14 @@ export class TagsService {
                 };
             });
 
-            await TagModel.bulkCreate(bulkInsertBody);
+            await TagModel.bulkCreate(bulkInsertBody, {
+                updateOnDuplicate: ['name', 'slug', 'updated_by']
+            });
 
             return { message: 'Tags added successfully' };
             
         } catch (error) {
+            console.log(error);
             return sendErrorFromMicroservice(error.message, error);
         }
 

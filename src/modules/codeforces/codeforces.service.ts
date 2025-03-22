@@ -41,6 +41,7 @@ export class CodeforcesService {
             const insertedQuestions = await CodeforcesQuestionModel.bulkCreate(questionsData, {
                 returning: true, // Return the inserted rows
                 transaction, // Use the transaction
+                updateOnDuplicate: ['name', 'points', 'rating', 'url', 'updated_by'], // Fields to update if duplicate
             });
 
             // Map question IDs to their slugs for efficient tag mapping
@@ -66,9 +67,9 @@ export class CodeforcesService {
                     const tagSlug = slugify(tag);
                     const tagId = tagSlugToIdMap[tagSlug];
                     if (tagId) {
-                        if (!questionTagMappings.some(mapping => 
-                            mapping.question_id === questionId && 
-                            mapping.platform === Platform.CODEFORCES && 
+                        if (!questionTagMappings.some(mapping =>
+                            mapping.question_id === questionId &&
+                            mapping.platform === Platform.CODEFORCES &&
                             mapping.tag_id === tagId
                         )) {
                             questionTagMappings.push({
@@ -84,7 +85,9 @@ export class CodeforcesService {
             }
 
             // Bulk insert question-tag mappings into the database
-            await QuestionTagMappingModel.bulkCreate(questionTagMappings, { transaction }); // Use the transaction
+            await QuestionTagMappingModel.bulkCreate(questionTagMappings, {
+                transaction, updateOnDuplicate: ['tag_id', 'updated_by'], // Fields to update if duplicate
+            }); // Use the transaction
 
             await transaction.commit(); // Commit the transaction
             return { message: 'Questions and tags mapped successfully' };

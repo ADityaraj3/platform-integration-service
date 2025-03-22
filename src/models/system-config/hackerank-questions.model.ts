@@ -54,7 +54,7 @@ export class HackerRankQuestionModel extends Model {
   points: number;
 
   @Column({
-    type: DataType.FLOAT,
+    type: DataType.DECIMAL(15, 2),
   })
   accuracy: number;
 

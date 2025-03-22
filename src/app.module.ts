@@ -20,6 +20,10 @@ import { LeetcodeService } from './modules/leetcode/leetcode.service';
 import { TagsModule } from './modules/tags/tags.module';
 import { LeetcodeModule } from './modules/leetcode/leetcode.module';
 import { TagsService } from './modules/tags/tags.service';
+import { GeeksForGeeksModule } from './modules/geeks-for-geeks/geeks-for-geeks.module';
+import { GeeksForGeeksService } from './modules/geeks-for-geeks/geeks-for-geeks.service';
+import { HackerrankModule } from './modules/hackerrank/hackerrank.module';
+import { HackerrankService } from './modules/hackerrank/hackerrank.service';
 
 @Module({
   imports: [
@@ -63,9 +67,11 @@ import { TagsService } from './modules/tags/tags.service';
     }),
     CodeforcesModule,
     TagsModule,
-    LeetcodeModule
+    LeetcodeModule,
+    GeeksForGeeksModule,
+    HackerrankModule
   ],
   controllers: [AppController],
-  providers: [AppService, ConfigService, CodeforcesService, LeetcodeService, TagsService],
+  providers: [AppService, ConfigService, CodeforcesService, LeetcodeService, TagsService, GeeksForGeeksService, HackerrankService],
 })
 export class AppModule { }
